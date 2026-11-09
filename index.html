@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAVE Pet Shop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="backdrop-label">CAVE Pet Shop — protótipo funcional</div>
+
+<div class="phone">
+  <div class="notch"></div>
+  <div class="statusbar">
+    <span id="clock">15:21</span>
+    <span>●●●</span>
+  </div>
+
+  <div class="screens">
+
+    <!-- 1. HOME -->
+    <section class="screen home-screen active" data-screen="home">
+      <div class="content">
+        <div class="brand-mark">
+          <svg viewBox="0 0 64 64" fill="none"><path d="M20 26c-3 0-6-3-6-7s2-7 5-7 5 3 5 7-1 7-4 7Z" stroke="#E8432E" stroke-width="2.4" stroke-linejoin="round"/><path d="M44 26c3 0 6-3 6-7s-2-7-5-7-5 3-5 7 1 7 4 7Z" stroke="#E8432E" stroke-width="2.4" stroke-linejoin="round"/><path d="M14 40c0-9 8-17 18-17s18 8 18 17c0 8-8 12-18 12s-18-4-18-12Z" stroke="#E8432E" stroke-width="2.4" stroke-linejoin="round"/><circle cx="26" cy="37" r="2" fill="#E8432E"/><circle cx="38" cy="37" r="2" fill="#E8432E"/></svg>
+        </div>
+        <h1 class="brand-title">CAVE</h1>
+        <p class="brand-sub">Pet Shop</p>
+        <div class="stack">
+          <button class="btn btn-primary" onclick="go('login')">Já sou cliente</button>
+          <button class="btn btn-ghost" onclick="go('cadastro')">Cadastre-se</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. LOGIN -->
+    <section class="screen" data-screen="login">
+      <div class="topbar"><button class="backbtn" onclick="go('home')"></button><h1>Entrar</h1></div>
+      <div class="content">
+        <form id="loginForm" onsubmit="return handleLogin(event)">
+          <div class="field" id="f-login-email">
+            <label>E-mail</label>
+            <input type="email" placeholder="seuemail@exemplo.com" required>
+            <div class="error">Digite um e-mail válido.</div>
+          </div>
+          <div class="field" id="f-login-senha">
+            <label>Senha</label>
+            <input type="password" placeholder="Sua senha" required minlength="4">
+            <div class="error">A senha precisa ter ao menos 4 caracteres.</div>
+          </div>
+          <button class="btn btn-primary" type="submit" style="margin-top:8px;">Acessar</button>
+        </form>
+        <div class="link-row">Esqueceu a senha? <a onclick="alert('Um link de recuperação seria enviado ao seu e-mail.')">Recuperar</a></div>
+        <div class="link-row">Ainda não tem conta? <a onclick="go('cadastro')">Cadastre-se</a></div>
+      </div>
+    </section>
+
+    <!-- 3. CADASTRO -->
+    <section class="screen" data-screen="cadastro">
+      <div class="topbar"><button class="backbtn" onclick="go('home')"></button><h1>Criar conta</h1></div>
+      <div class="content">
+        <form id="cadastroForm" onsubmit="return handleCadastro(event)">
+          <div class="field" id="f-nome"><label>Nome</label><input type="text" required><div class="error">Informe seu nome.</div></div>
+          <div class="field" id="f-sobrenome"><label>Sobrenome</label><input type="text" required><div class="error">Informe seu sobrenome.</div></div>
+          <div class="field" id="f-cpf"><label>CPF</label><input type="text" placeholder="000.000.000-00" required><div class="error">Informe um CPF válido.</div></div>
+          <div class="field" id="f-telefone"><label>Telefone</label><input type="tel" placeholder="(11) 90000-0000" required><div class="error">Informe um telefone válido.</div></div>
+          <div class="field" id="f-email"><label>E-mail</label><input type="email" required><div class="error">Informe um e-mail válido.</div></div>
+          <div class="field" id="f-senha"><label>Senha</label><input type="password" minlength="4" required><div class="error">Mínimo de 4 caracteres.</div></div>
+          <div class="field" id="f-senha2"><label>Confirmar senha</label><input type="password" required><div class="error">As senhas não coincidem.</div></div>
+          <button class="btn btn-primary" type="submit" style="margin-top:8px;">Cadastrar</button>
+        </form>
+        <div class="link-row">Já tem conta? <a onclick="go('login')">Acessar</a></div>
+      </div>
+    </section>
+
+    <!-- 4. DASHBOARD -->
+    <section class="screen" data-screen="dashboard">
+      <div class="topbar"><h1 id="dashTitle">CAVE Pet Shop</h1><div class="spacer"></div></div>
+      <div class="content">
+        <div class="search-box">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#4A4227" stroke-width="2"/><path d="M21 21l-4-4" stroke="#4A4227" stroke-width="2" stroke-linecap="round"/></svg>
+          <input type="text" placeholder="O que você procura?">
+        </div>
+        <p class="greet" id="greetMsg">Bem-vindo(a)!</p>
+        <p class="section-label">Serviços</p>
+        <div class="service-grid">
+          <div class="service-card" onclick="startBooking('tosa')">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M6 3l6 6M18 3l-6 6M6 21l6-6M18 21l-6-6" stroke="#241F13" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="2.4" fill="#E8432E"/></svg>
+            <span>Tosa</span>
+          </div>
+          <div class="service-card" onclick="startBooking('banho')">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M7 20a5 5 0 0010 0c0-4-5-10-5-10s-5 6-5 10Z" stroke="#241F13" stroke-width="2" stroke-linejoin="round"/><path d="M12 3v3" stroke="#E8432E" stroke-width="2" stroke-linecap="round"/></svg>
+            <span>Banho</span>
+          </div>
+        </div>
+        <p class="section-label">Seus pets</p>
+        <div class="pet-row" id="petRow"></div>
+      </div>
+    </section>
+
+    <!-- 5/6. BOOKING (shared template, retitled per service) -->
+    <section class="screen" data-screen="booking">
+      <div class="topbar"><button class="backbtn" onclick="go('dashboard')"></button><h1 id="bookingTitle">Tosa</h1></div>
+      <div class="content">
+        <div class="field">
+          <label>Pet / Cliente</label>
+          <select id="bk-pet"></select>
+        </div>
+        <div class="field">
+          <label>Item</label>
+          <select id="bk-item" onchange="updateBookingTotal()"></select>
+        </div>
+        <div class="field">
+          <label>Item adicional</label>
+          <select id="bk-adicional" onchange="updateBookingTotal()"></select>
+        </div>
+        <div class="field">
+          <label>Horário</label>
+          <select id="bk-horario"></select>
+        </div>
+        <div class="field">
+          <label>Data</label>
+          <input type="date" id="bk-data">
+        </div>
+        <div class="booking-summary">
+          <span class="tot-label">Total do serviço</span>
+          <span class="tot-value" id="bk-total">R$ 0,00</span>
+        </div>
+        <button class="btn btn-primary" style="margin-top:16px;" onclick="goToPayment()">Pagamento</button>
+        <div class="note-box">Não encontrou a vaga que queria? Deixe seu feedback ou entre em contato via WhatsApp.</div>
+      </div>
+    </section>
+
+    <!-- 7. PAGAMENTO -->
+    <section class="screen" data-screen="pagamento">
+      <div class="topbar"><button class="backbtn" onclick="go('booking')"></button><h1>Pagamento</h1></div>
+      <div class="content">
+        <p class="section-label">Formas de pagamento</p>
+        <div class="pay-methods" id="payMethods"></div>
+
+        <div class="field" id="f-valorPago">
+          <label>Valor pago agora</label>
+          <input type="number" id="valorPagoInput" min="0" step="0.01" placeholder="0,00" oninput="updatePaySummary()">
+        </div>
+
+        <div class="pay-totals">
+          <div class="row"><span>Total</span><span id="payTotal">R$ 0,00</span></div>
+          <div class="row"><span>Total pago</span><span id="payPaid">R$ 0,00</span></div>
+          <div class="row falta" id="payFaltaRow"><span>Falta</span><span id="payFalta">R$ 0,00</span></div>
+        </div>
+
+        <button class="btn btn-teal" id="finalizeBtn" disabled onclick="finalizePayment()">Finalizar pagamento</button>
+      </div>
+    </section>
+
+    <!-- 8. SUCESSO -->
+    <section class="screen success-screen" data-screen="sucesso">
+      <div class="content">
+        <div class="success-icon">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>  
+        <h2>Agendamento confirmado!</h2>
+        <p id="successMsg">Seu horário foi reservado e o pagamento foi concluído com sucesso.</p>
+        <button class="btn btn-primary" onclick="resetFlow()">Voltar ao início</button>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
